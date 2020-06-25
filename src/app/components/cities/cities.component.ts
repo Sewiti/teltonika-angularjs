@@ -4,9 +4,7 @@ import { CitiesService } from '../../services/cities.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CityDialogComponent, CityDialogType } from '../dialogs/city/city.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
-import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpResponse } from '@angular/common/http';
 
 
 export interface CityMinimal {
@@ -33,7 +31,8 @@ export class CitiesComponent implements OnInit {
 
   country_id: number;
   country_name: string;
-  cities: City[];
+  cities: City[] = [];
+  loading: boolean = true;
   hasNext: boolean;
 
   params: {
@@ -45,7 +44,6 @@ export class CitiesComponent implements OnInit {
 
 
   constructor(
-    public location: Location,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -71,6 +69,21 @@ export class CitiesComponent implements OnInit {
   }
 
 
+  goBack() {
+    this.router.navigate(
+      [''],
+      {
+        queryParams: {
+          page:  this.activatedRoute.snapshot.queryParamMap.get('countryPage'),
+          order: this.activatedRoute.snapshot.queryParamMap.get('countryOrder'),
+          text:  this.activatedRoute.snapshot.queryParamMap.get('countryText'),
+          date:  this.activatedRoute.snapshot.queryParamMap.get('countryDate')
+        }
+      }
+    );
+  }
+
+
   refreshCities() {
     this.service.getCities(this.country_id, this.params).subscribe(response => {
       if (response.status != 200) {
@@ -80,6 +93,7 @@ export class CitiesComponent implements OnInit {
       
       // console.log(response);
       this.cities = response.body as any[];  // .cities ??
+      this.loading = false;
 
 
       // Pagination compensating cuz of bad api:)

@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
   @Input('route') private route: string[];
+  @Input('placeholder') placeholder: string;
   @Output('newDialog') newDialog = new EventEmitter();
 
   today = new Date().toLocaleDateString('lt-LT');

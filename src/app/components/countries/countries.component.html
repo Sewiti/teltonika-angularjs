@@ -1,11 +1,12 @@
-<mat-toolbar color="accent">
+<mat-toolbar color="primary">
     <mat-toolbar-row>
         <span>Šalys</span>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <app-navbar
-    [route]="['']"
+    route=""
+    placeholder="Lietuva"
     (newDialog)="newCountryDialog()">
 </app-navbar>
 
@@ -27,7 +28,9 @@
                 </mat-header-cell>
                 
                 <mat-cell *matCellDef="let country">
-                    <a mat-button [routerLink]="'/cities/' + country.id + '/' + country.name">
+                    <a  mat-button
+                        [routerLink]="'/cities/' + country.id + '/' + country.name"
+                        [queryParams]="{ countryPage: params.page, countryOrder: params.order, countryText: params.text, countryDate: params.date }">
                         {{country.name}}
                     </a>
                 </mat-cell>
@@ -52,12 +55,14 @@
                 <mat-header-cell *matHeaderCellDef>Veiksmai</mat-header-cell>
                 <mat-cell *matCellDef="let country">
                     <button
+                        mat-button
                         mat-icon-button
                         aria-label="Edit button."
                         (click)="editCountryDialog(country)">
                         <mat-icon>create_outline</mat-icon>
                     </button>
                     <button
+                        mat-button
                         mat-icon-button
                         aria-label="Delete button."
                         (click)="deleteCountryDialog(country)">
@@ -70,11 +75,11 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <span
-            class="mat-accent"
-            *ngIf="countries.length == 0">
-            Šalių nėra.
-        </span>
+        <div
+            class="no-elements"
+            *ngIf="!loading && countries.length == 0">
+            Šalių nėra
+        </div>
     </mat-card-content>
 </mat-card>
 

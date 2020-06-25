@@ -1,6 +1,7 @@
 <mat-card>
     <mat-card-actions align="end">
         <button
+            mat-button
             mat-icon-button
             [disabled]="page <= 1"
             (click)="page = page-1; updateQuery()">
@@ -8,6 +9,7 @@
         </button>
         <span>{{ page }}</span>
         <button
+            mat-button
             mat-icon-button
             [disabled]="!hasNext"
             (click)="page = page+1; updateQuery()">

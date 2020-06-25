@@ -5,3 +5,14 @@ button.mat-button {
 a.mat-button {
     font-weight: normal;
 }
+
+.no-elements {
+    margin-top: 16px;
+    text-align: center;
+    
+    font-size: larger;
+    font-weight: 500;
+    font-style: italic;
+    
+    color: #ff4080dd;
+}

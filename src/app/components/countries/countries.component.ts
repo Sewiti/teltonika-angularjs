@@ -28,10 +28,11 @@ export interface Country extends CountryMinimal {
 export class CountriesComponent implements OnInit {
   displayedColumns = ['name', 'area', 'population', 'calling_code', 'actions'];
 
-  countries: Country[];
+  countries: Country[] = [];
+  loading: boolean = true;
   hasNext: boolean;
   
-  params:{
+  params: {
     page?: string,
     order?:string,
     text?: string,
@@ -48,14 +49,14 @@ export class CountriesComponent implements OnInit {
   ) {}
               
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(query => {
       this.params = {};
       
-      if (query.has('page'))  { this.params.page  = query.get('page')  }
-      if (query.has('order')) { this.params.order = query.get('order') }
-      if (query.has('text'))  { this.params.text  = query.get('text')  }
-      if (query.has('date'))  { this.params.date  = query.get('date')  }
+      if (query.has('page'))  { this.params.page  = query.get('page');  }
+      if (query.has('order')) { this.params.order = query.get('order'); }
+      if (query.has('text'))  { this.params.text  = query.get('text');  }
+      if (query.has('date'))  { this.params.date  = query.get('date');  }
 
       this.refreshCountries();
     });
@@ -70,6 +71,8 @@ export class CountriesComponent implements OnInit {
       }
 
       this.countries = (response.body as any).countires; // count i res ??
+      this.loading = false;
+
 
       // Pagination compensating cuz of bad api:)
       if (this.countries.length < 10) {

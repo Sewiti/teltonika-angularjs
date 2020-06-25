@@ -3,8 +3,8 @@
         <a  mat-button
             mat-icon-button
             style="margin-right: 8px;"
-            (click)="location.back()">
-            <mat-icon>arrow_back_outline</mat-icon>
+            (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
         </a>
         <span>{{ country_name }}</span>
     </mat-toolbar-row>
@@ -12,6 +12,7 @@
 
 <app-navbar
     [route]="['cities', country_id, country_name]"
+    placeholder="Vilnius"
     (newDialog)="newCityDialog()">
 </app-navbar>
 
@@ -51,12 +52,14 @@
                 <mat-header-cell *matHeaderCellDef> Veiksmai </mat-header-cell>
                 <mat-cell *matCellDef="let city">
                     <button
+                        mat-button
                         mat-icon-button
                         aria-label="Edit button."
                         (click)="editCityDialog(city)">
                         <mat-icon>create_outline</mat-icon>
                     </button>
                     <button
+                        mat-button
                         mat-icon-button
                         aria-label="Delete button."
                         (click)="deleteCityDialog(city)">
@@ -69,7 +72,12 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <span *ngIf="cities.length == 0">Miestų nėra.</span>
+        <div
+            class="no-elements"
+            *ngIf="!loading && cities.length == 0">
+            Miestų nėra
+        </div>
+
     </mat-card-content>
 </mat-card>
 

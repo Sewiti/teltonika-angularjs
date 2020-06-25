@@ -9,3 +9,14 @@ a.mat-button {
 mat-form-field {
     margin-left: 16px;
 }
+
+.no-elements {
+    margin-top: 16px;
+    text-align: center;
+    
+    font-size: larger;
+    font-weight: 500;
+    font-style: italic;
+    
+    color: #ff4080dd;
+}
