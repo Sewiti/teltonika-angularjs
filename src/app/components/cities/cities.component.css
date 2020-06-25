@@ -1,0 +1,11 @@
+button.mat-button {
+    font-size: 12px;
+}
+
+a.mat-button {
+    font-weight: normal;
+}
+
+mat-form-field {
+    margin-left: 16px;
+}

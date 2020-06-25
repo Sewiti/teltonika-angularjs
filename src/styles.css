@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    min-width: 800px;
+}
+
+.no-hover-effect .mat-button-focus-overlay
+{
+  background-color: transparent;
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}
+
+.mat-form-field-suffix > button.mat-icon-button,
+.mat-form-field-suffix > * > button.mat-icon-button {
+  width: 1.5em !important;
+  height: 1.5em !important;
+}

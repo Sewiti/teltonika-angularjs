@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <a  mat-button
+            mat-icon-button
+            style="margin-right: 8px;"
+            (click)="location.back()">
+            <mat-icon>arrow_back_outline</mat-icon>
+        </a>
+        <span>{{ country_name }}</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<app-navbar
+    [route]="['cities', country_id, country_name]"
+    (newDialog)="newCityDialog()">
+</app-navbar>
+
+<mat-card style="min-height: 547px;">
+    <mat-card-content>
+        <mat-table [dataSource]="cities">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-button [ngSwitch]="params.order" (click)="orderButtonClick()" aria-label="Order by name button.">
+                        <span> Pavadinimas </span>
+
+                        <mat-icon *ngSwitchCase="'asc'">  expand_less </mat-icon>
+                        <mat-icon *ngSwitchCase="'desc'"> expand_more </mat-icon>
+                        <mat-icon *ngSwitchDefault>       unfold_more </mat-icon>
+                    </button>
+                </mat-header-cell>
+                
+                <mat-cell style="padding-left: 40px;" *matCellDef="let city">{{ city.name }}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="area">
+                <mat-header-cell *matHeaderCellDef>Užimamas plotas</mat-header-cell>
+                <mat-cell *matCellDef="let city">{{ city.area }} km²</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="population">
+                <mat-header-cell *matHeaderCellDef>Gyventojų skaičius</mat-header-cell>
+                <mat-cell *matCellDef="let city">{{ city.population }}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="postcode">
+                <mat-header-cell *matHeaderCellDef>Miesto pašto kodas</mat-header-cell>
+                <mat-cell *matCellDef="let city">{{ city.postcode }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Veiksmai </mat-header-cell>
+                <mat-cell *matCellDef="let city">
+                    <button
+                        mat-icon-button
+                        aria-label="Edit button."
+                        (click)="editCityDialog(city)">
+                        <mat-icon>create_outline</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        aria-label="Delete button."
+                        (click)="deleteCityDialog(city)">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <span *ngIf="cities.length == 0">Miestų nėra.</span>
+    </mat-card-content>
+</mat-card>
+
+<app-paginator
+    [route]="['cities', country_id, country_name]"
+    [hasNext]="hasNext">
+</app-paginator>

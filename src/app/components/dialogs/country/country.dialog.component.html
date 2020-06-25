@@ -1,0 +1,79 @@
+<h1 mat-dialog-title>{{ data.type == 0 ? "Nauja šalis" : "Redaguoti šalį" }}</h1>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-dialog-content>
+        <mat-form-field appearance="standard">
+            <mat-label>Pavadinimas</mat-label>
+            <input
+                matInput
+                formControlName="name"
+                type="text"
+                placeholder="Lietuva">
+
+            <mat-hint align="end">{{ name.value?.length || 0 }}/50</mat-hint>
+
+            <mat-error *ngIf="name.errors?.required">Privaloma</mat-error>
+            <mat-error *ngIf="name.errors?.minlength">Privalo būti bent 3 raidės</mat-error>
+            <mat-error *ngIf="name.errors?.maxlength">Negali viršyti 50 raidžių</mat-error>
+            <mat-error *ngIf="name.errors?.pattern &&
+                             !name.errors?.minlength &&
+                             !name.errors?.maxlength">Privalo būti tik raidės</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Užimamas plotas, km²</mat-label>
+            <input
+                matInput
+                formControlName="area"
+                type="number"
+                placeholder="65300">
+
+            <mat-error *ngIf="area.errors?.required">Privaloma</mat-error>
+            <mat-error *ngIf="area.errors?.min">Skaičius privalo būti teigiamas</mat-error>
+            <mat-error *ngIf="area.errors?.max">Skaičius negali viršyti 500 milijonų</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Gyventojų skaičius</mat-label>
+            <input
+                matInput
+                formControlName="population"
+                type="number"
+                placeholder="2800000">
+
+            <mat-error *ngIf="population.errors?.required">Privaloma</mat-error>
+            <mat-error *ngIf="population.errors?.min">Skaičius privalo būti teigiamas</mat-error>
+            <mat-error *ngIf="population.errors?.max">Skaičius negali viršyti 10 bilijonų</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Šalies telefono kodas</mat-label>
+            <span matPrefix>+&nbsp;</span>
+            <input
+                matInput
+                formControlName="calling_code"
+                type="number"
+                placeholder="370">
+
+            <mat-hint align="end">{{ calling_code.value?.toString().length || 0 }}/4</mat-hint>
+
+            <mat-error *ngIf="calling_code.errors?.required">Privaloma</mat-error>
+            <mat-error *ngIf="calling_code.errors?.min">Privalo būti bent 2 skaitmenys</mat-error>
+            <mat-error *ngIf="calling_code.errors?.max">Negali viršyti 4 skaitmenų</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button
+            mat-button
+            mat-dialog-close>
+            Atšaukti
+        </button>
+        <button
+            mat-raised-button
+            color="primary"
+            type="submit">
+            {{ data.type == 0 ? "Sukurti" : "Išsaugoti" }}
+        </button>
+    </mat-dialog-actions>
+</form>

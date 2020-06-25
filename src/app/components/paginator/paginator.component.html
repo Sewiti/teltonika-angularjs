@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-actions align="end">
+        <button
+            mat-icon-button
+            [disabled]="page <= 1"
+            (click)="page = page-1; updateQuery()">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span>{{ page }}</span>
+        <button
+            mat-icon-button
+            [disabled]="!hasNext"
+            (click)="page = page+1; updateQuery()">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

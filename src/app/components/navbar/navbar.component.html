@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-content>
+        <button
+            mat-mini-fab
+            color="primary"
+            style="margin-right: 8px;"
+            (click)="newDialog.emit()">
+            <mat-icon style="vertical-align: top;">add</mat-icon>
+        </button>
+        
+        <form style="display: inline;">
+            <mat-form-field appearance="standard" style="width: 300px;">
+                <mat-label>Paieška</mat-label>
+                <input
+                    matInput
+                    name="search"
+                    type="text"
+                    [(ngModel)]="search"
+                    placeholder="Lietuva"
+                    (keyup)="searchChanged()">
+
+                <button
+                    mat-button
+                    mat-icon-button
+                    matSuffix
+                    style="color: rgba(0,0,0,.54)"
+                    *ngIf="search"
+                    (click)="search = ''; searchChanged()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-icon
+                    matSuffix
+                    style="color: rgba(0,0,0,.54)"
+                    *ngIf="!search">
+                    search
+                </mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard">
+                <mat-label>Data</mat-label>
+                <input
+                    [(ngModel)]="date"
+                    name="date"
+                    matInput
+                    [matDatepicker]="picker"
+                    [placeholder]="today"
+                    (dateChange)="dateChanged()">
+
+                <button
+                    mat-button
+                    mat-icon-button
+                    matSuffix
+                    style="color: rgba(0,0,0,.54)"
+                    *ngIf="date"
+                    (click)="date = null; dateChanged()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                    *ngIf="!date">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>

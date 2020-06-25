@@ -1,0 +1,84 @@
+<mat-toolbar color="accent">
+    <mat-toolbar-row>
+        <span>Šalys</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<app-navbar
+    [route]="['']"
+    (newDialog)="newCountryDialog()">
+</app-navbar>
+
+<mat-card style="min-height: 547px;">
+    <mat-card-content>
+        <mat-table [dataSource]="countries">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-button
+                            aria-label="Order by name button."
+                            (click)="orderButtonClick()"
+                            [ngSwitch]="params.order">
+                        <span> Pavadinimas </span>
+        
+                        <mat-icon *ngSwitchCase="'asc'">  expand_less </mat-icon>
+                        <mat-icon *ngSwitchCase="'desc'"> expand_more </mat-icon>
+                        <mat-icon *ngSwitchDefault>       unfold_more </mat-icon>
+                    </button>
+                </mat-header-cell>
+                
+                <mat-cell *matCellDef="let country">
+                    <a mat-button [routerLink]="'/cities/' + country.id + '/' + country.name">
+                        {{country.name}}
+                    </a>
+                </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="area">
+                <mat-header-cell *matHeaderCellDef>Užimamas plotas</mat-header-cell>
+                <mat-cell *matCellDef="let country">{{ country.area }} km²</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="population">
+                <mat-header-cell *matHeaderCellDef>Gyventojų skaičius</mat-header-cell>
+                <mat-cell *matCellDef="let country">{{ country.population }}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="calling_code">
+                <mat-header-cell *matHeaderCellDef>Šalies tel. kodas</mat-header-cell>
+                <mat-cell *matCellDef="let country">{{ country.calling_code }}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Veiksmai</mat-header-cell>
+                <mat-cell *matCellDef="let country">
+                    <button
+                        mat-icon-button
+                        aria-label="Edit button."
+                        (click)="editCountryDialog(country)">
+                        <mat-icon>create_outline</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        aria-label="Delete button."
+                        (click)="deleteCountryDialog(country)">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <span
+            class="mat-accent"
+            *ngIf="countries.length == 0">
+            Šalių nėra.
+        </span>
+    </mat-card-content>
+</mat-card>
+
+<app-paginator
+    [route]="['']"
+    [hasNext]="hasNext">
+</app-paginator>
