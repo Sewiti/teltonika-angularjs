@@ -79,7 +79,7 @@ export class CountriesComponent implements OnInit {
         this.hasNext = false;
       }
       else {
-        const temp = Object.create(this.params);
+        const temp = {...this.params};
         temp.page = (temp.page ? +temp.page + 1 : 2).toString();
 
         this.service.getCountries( temp ).subscribe(subResponse => {
