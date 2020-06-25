@@ -26,7 +26,7 @@
                     style="color: rgba(0,0,0,.54)"
                     *ngIf="search"
                     (click)="search = ''; searchChanged()">
-                    <mat-icon>close</mat-icon>
+                    <mat-icon class="fix-icon">close</mat-icon>
                 </button>
                 <mat-icon
                     matSuffix
@@ -53,7 +53,7 @@
                     style="color: rgba(0,0,0,.54)"
                     *ngIf="date"
                     (click)="date = null; dateChanged()">
-                    <mat-icon>close</mat-icon>
+                    <mat-icon class="fix-icon">close</mat-icon>
                 </button>
                 <mat-datepicker-toggle
                     matSuffix
