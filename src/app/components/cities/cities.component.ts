@@ -8,17 +8,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface CityMinimal {
-  name: string,
-  area: number,
-  population: number,
-  postcode: string,
-  country_id: number
-};
+  name: string;
+  area: number;
+  population: number;
+  postcode: string;
+  country_id: number;
+}
 
 export interface City extends CityMinimal {
-  id: number,
-  created_at: string
-};
+  id: number;
+  created_at: string;
+}
 
 
 @Component({
@@ -29,15 +29,15 @@ export interface City extends CityMinimal {
 export class CitiesComponent implements OnInit {
   displayedColumns = ['name', 'area', 'population', 'postcode', 'actions'];
 
-  country_id: number;
-  country_name: string;
+  countryId: number;
+  countryName: string;
   cities: City[] = [];
-  loading: boolean = true;
+  loading = true;
   hasNext: boolean;
 
   params: {
     page?: string,
-    order?:string,
+    order?: string,
     text?: string,
     date?: string
   };
@@ -53,16 +53,16 @@ export class CitiesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.country_id   = +this.activatedRoute.snapshot.paramMap.get('country_id');
-    this.country_name =  this.activatedRoute.snapshot.paramMap.get('country_name');
+    this.countryId   = +this.activatedRoute.snapshot.paramMap.get('countryId');
+    this.countryName =  this.activatedRoute.snapshot.paramMap.get('countryName');
 
     this.activatedRoute.queryParamMap.subscribe(query => {
       this.params = {};
-      
-      if (query.has('page'))  { this.params.page  = query.get('page')  }
-      if (query.has('order')) { this.params.order = query.get('order') }
-      if (query.has('text'))  { this.params.text  = query.get('text')  }
-      if (query.has('date'))  { this.params.date  = query.get('date')  }
+
+      if (query.has('page'))  { this.params.page  = query.get('page');  }
+      if (query.has('order')) { this.params.order = query.get('order'); }
+      if (query.has('text'))  { this.params.text  = query.get('text');  }
+      if (query.has('date'))  { this.params.date  = query.get('date');  }
 
       this.refreshCities();
     });
@@ -85,12 +85,12 @@ export class CitiesComponent implements OnInit {
 
 
   refreshCities() {
-    this.service.getCities(this.country_id, this.params).subscribe(response => {
-      if (response.status != 200) {
+    this.service.getCities(this.countryId, this.params).subscribe(response => {
+      if (response.status !== 200) {
         this.pushNotification('Nepavyko gauti miestų');
         return;
       }
-      
+
       // console.log(response);
       this.cities = response.body as any[];  // .cities ??
       this.loading = false;
@@ -101,11 +101,11 @@ export class CitiesComponent implements OnInit {
         this.hasNext = false;
       }
       else {
-        let temp = Object.create(this.params);
-        temp.page = (temp.page ? +temp.page+1 : 2).toString();
+        const temp = Object.create(this.params);
+        temp.page = (temp.page ? +temp.page + 1 : 2).toString();
 
-        this.service.getCities(this.country_id, temp).subscribe(response => {
-          this.hasNext = (response.body as any[]).length > 0;
+        this.service.getCities(this.countryId, temp).subscribe(subResponse => {
+          this.hasNext = (subResponse.body as any[]).length > 0;
         });
       }
     });
@@ -117,15 +117,15 @@ export class CitiesComponent implements OnInit {
       width: '400px',
       data: {
         type: CityDialogType.create,
-        country_id: this.country_id
+        country_id: this.countryId
       }
-    })
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.service.createCity(result.city).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Miestas sėkmingai sukurtas' :
             'Nepavyko sukurti miesto'
           );
@@ -146,8 +146,8 @@ export class CitiesComponent implements OnInit {
         width: '400px',
         data: {
           type: CityDialogType.edit,
-          country_id: this.country_id,
-          city: city
+          country_id: this.countryId,
+          city
         }
       }
     );
@@ -156,7 +156,7 @@ export class CitiesComponent implements OnInit {
       if (result) {
         this.service.updateCity(result.id, result.city).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Miestas sėkmingai išsaugotas' :
             'Nepavyko išsaugoti miesto'
           );
@@ -183,7 +183,7 @@ export class CitiesComponent implements OnInit {
       if (result?.confirmed) {
         this.service.deleteCity(city.id).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Miestas sėkmingai ištrintas' :
             'Nepavyko ištrinti miesto'
           );
@@ -199,11 +199,11 @@ export class CitiesComponent implements OnInit {
   pushNotification(message: string) {
     this.snackBar.open(
       message,
-      "Uždaryti",
+      'Uždaryti',
       {
         duration: 3000,
       }
-    );  
+    );
   }
 
 
@@ -217,7 +217,7 @@ export class CitiesComponent implements OnInit {
     }
 
     this.router.navigate(
-      ['cities', this.country_id, this.country_name],
+      ['cities', this.countryId, this.countryName],
       {
         queryParams: {
           order: newOrder

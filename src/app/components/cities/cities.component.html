@@ -6,12 +6,12 @@
             (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
         </a>
-        <span>{{ country_name }}</span>
+        <span>{{ countryName }}</span>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <app-navbar
-    [route]="['cities', country_id, country_name]"
+    [route]="['cities', countryId, countryName]"
     placeholder="Vilnius"
     (newDialog)="newCityDialog()">
 </app-navbar>
@@ -82,6 +82,6 @@
 </mat-card>
 
 <app-paginator
-    [route]="['cities', country_id, country_name]"
+    [route]="['cities', countryId, countryName]"
     [hasNext]="hasNext">
 </app-paginator>

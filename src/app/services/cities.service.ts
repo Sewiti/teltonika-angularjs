@@ -12,20 +12,20 @@ export class CitiesService {
   constructor(private http: HttpClient) { }
 
 
-  getCities(country_id?: number, params?: {page?:string, order?:string, text?:string, date?:string}) {
-    let _url = (country_id == null) ? (this.url) : (this.url + '/' + country_id);
-    return this.http.get(_url, { params: params, observe: 'response' });
+  getCities(countryId?: number, params?: {page?: string, order?: string, text?: string, date?: string}) {
+    const url = (countryId) ? (this.url + '/' + countryId) : (this.url);
+    return this.http.get(url, { params, observe: 'response' });
   }
 
   createCity(city: CityMinimal) {
     return this.http.post(this.url, city, { observe: 'response' });
   }
 
-  updateCity(city_id: number, city: CityMinimal) {
-    return this.http.put(this.url + '/' + city_id, city, { observe: 'response' });
+  updateCity(cityId: number, city: CityMinimal) {
+    return this.http.put(this.url + '/' + cityId, city, { observe: 'response' });
   }
 
-  deleteCity(city_id: number) {
-    return this.http.delete(this.url + '/' + city_id, { observe: 'response' });
+  deleteCity(cityId: number) {
+    return this.http.delete(this.url + '/' + cityId, { observe: 'response' });
   }
 }

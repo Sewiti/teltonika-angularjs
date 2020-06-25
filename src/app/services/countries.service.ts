@@ -12,8 +12,8 @@ export class CountriesService {
   constructor(private http: HttpClient) {}
 
 
-  getCountries(params?: {page?:string, order?:string, text?:string, date?:string}) {
-    return this.http.get(this.url, { params: params, observe: 'response' });
+  getCountries(params?: {page?: string, order?: string, text?: string, date?: string}) {
+    return this.http.get(this.url, { params, observe: 'response' });
   }
 
   getCountry(countryId: number) {
@@ -24,11 +24,11 @@ export class CountriesService {
     return this.http.post(this.url, country, { observe: 'response' });
   }
 
-  updateCountry(country_id: number, country: CountryMinimal) {
-    return this.http.put(this.url + '/' + country_id, country, { observe: 'response' });
+  updateCountry(countryId: number, country: CountryMinimal) {
+    return this.http.put(this.url + '/' + countryId, country, { observe: 'response' });
   }
 
-  deleteCountry(country_id: number) {
-    return this.http.delete(this.url + '/' + country_id, { observe: 'response' });
+  deleteCountry(countryId: number) {
+    return this.http.delete(this.url + '/' + countryId, { observe: 'response' });
   }
 }

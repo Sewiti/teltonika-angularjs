@@ -1,9 +1,9 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country, CountryMinimal } from '../../countries/countries.component';
 
-export enum CountryDialogType {create = 0, edit = 1};
+export enum CountryDialogType {create = 0, edit = 1}
 
 export interface CountryDialogData {
   type: CountryDialogType;
@@ -17,12 +17,12 @@ export interface CountryDialogData {
     styleUrls: ['./country.dialog.component.css'],
 })
 export class CountryDialogComponent {
-  
+
   constructor(
     public dialogRef: MatDialogRef<CountryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CountryDialogData)
   {
-    if (data.type == CountryDialogType.edit) {
+    if (data.type === CountryDialogType.edit) {
       this.form.setValue({
         name: data.country.name,
         area: data.country.area,

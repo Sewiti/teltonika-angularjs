@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy:localhost": "ng build --prod --base-href='http://localhost/teltonika/'   && cp  ./dist/teltonika-mb/* /srv/http/teltonika/",
+    "deploy:nexus-5":   "ng build --prod --base-href='http://77.90.94.17/teltonika/' && scp ./dist/teltonika-mb/* Nexus-5:/var/www/html/teltonika/"
   },
   "private": true,
   "dependencies": {

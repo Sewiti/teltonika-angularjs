@@ -8,15 +8,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  @Input('route') private route: string[];
-  @Input('placeholder') placeholder: string;
-  @Output('newDialog') newDialog = new EventEmitter();
+  @Input() private route: string[];
+  @Input() placeholder: string;
+  @Output() newDialog = new EventEmitter();
 
   today = new Date().toLocaleDateString('lt-LT');
 
   search: string;
   date: Date;
-  
+
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute) {}
@@ -35,7 +35,7 @@ export class NavBarComponent implements OnInit {
 
   searchChanged() {
     this.router.navigate(this.route, {
-      queryParams: {text: (this.search == '' ? undefined : this.search)},
+      queryParams: {text: (this.search === '' ? undefined : this.search)},
       queryParamsHandling: 'merge'
     });
   }

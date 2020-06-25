@@ -4,11 +4,11 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { City, CityMinimal } from '../../cities/cities.component';
 
 
-export enum CityDialogType {create = 0, edit = 1};
+export enum CityDialogType {create = 0, edit = 1}
 
 export interface CityDialogData {
   type: CityDialogType;
-  country_id?: number,
+  countryId?: number;
   city?: City;
 }
 
@@ -24,7 +24,7 @@ export class CityDialogComponent {
     public dialogRef: MatDialogRef<CityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CityDialogData)
   {
-    if (data.type == CityDialogType.edit) {
+    if (data.type === CityDialogType.edit) {
       this.form.setValue({
         name: data.city.name,
         area: data.city.area,
@@ -77,7 +77,7 @@ export class CityDialogComponent {
           area: this.area.value,
           population: this.population.value,
           postcode:   this.postcode.value,
-          country_id: this.data.country_id || this.data.city.country_id
+          country_id: this.data.countryId || this.data.city.country_id
         } as CityMinimal
       });
     }

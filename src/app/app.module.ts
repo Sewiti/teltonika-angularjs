@@ -72,7 +72,7 @@ import { DeleteDialogComponent } from './components/dialogs/delete/delete.dialog
         component: CountriesComponent
       },
       {
-        path: 'cities/:country_id/:country_name',
+        path: 'cities/:countryId/:countryName',
         component: CitiesComponent
       }
     ])

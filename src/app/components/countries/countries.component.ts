@@ -8,16 +8,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface CountryMinimal {
-  name: string,
-  area: number,
-  population: number,
-  calling_code: string
-};
+  name: string;
+  area: number;
+  population: number;
+  calling_code: string;
+}
 
 export interface Country extends CountryMinimal {
-  id: number,
-  created_at: string
-};
+  id: number;
+  created_at: string;
+}
 
 
 @Component({
@@ -29,12 +29,12 @@ export class CountriesComponent implements OnInit {
   displayedColumns = ['name', 'area', 'population', 'calling_code', 'actions'];
 
   countries: Country[] = [];
-  loading: boolean = true;
+  loading = true;
   hasNext: boolean;
-  
+
   params: {
     page?: string,
-    order?:string,
+    order?: string,
     text?: string,
     date?: string
   };
@@ -47,12 +47,12 @@ export class CountriesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public service: CountriesService
   ) {}
-              
+
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(query => {
       this.params = {};
-      
+
       if (query.has('page'))  { this.params.page  = query.get('page');  }
       if (query.has('order')) { this.params.order = query.get('order'); }
       if (query.has('text'))  { this.params.text  = query.get('text');  }
@@ -65,7 +65,7 @@ export class CountriesComponent implements OnInit {
 
   refreshCountries() {
     this.service.getCountries( this.params ).subscribe(response => {
-      if (response.status != 200) {
+      if (response.status !== 200) {
         this.pushNotification('Nepavyko gauti šalių');
         return;
       }
@@ -79,11 +79,11 @@ export class CountriesComponent implements OnInit {
         this.hasNext = false;
       }
       else {
-        let temp = Object.create(this.params);
-        temp.page = (temp.page ? +temp.page+1 : 2).toString();
+        const temp = Object.create(this.params);
+        temp.page = (temp.page ? +temp.page + 1 : 2).toString();
 
-        this.service.getCountries( temp ).subscribe(response => {
-          this.hasNext = (response.body as any).count > 0;
+        this.service.getCountries( temp ).subscribe(subResponse => {
+          this.hasNext = (subResponse.body as any).count > 0;
         });
       }
     });
@@ -94,17 +94,17 @@ export class CountriesComponent implements OnInit {
     const dialogRef = this.dialog.open(CountryDialogComponent, {
       width: '400px',
       data: {type: CountryDialogType.create}
-    })
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.service.createCountry(result.country).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Šalis sėkmingai sukurta' :
             'Nepavyko sukurti šalies'
           );
-        
+
           console.log(response);
           this.refreshCountries();
         });
@@ -119,15 +119,15 @@ export class CountriesComponent implements OnInit {
       width: '400px',
       data: {
         type: CountryDialogType.edit,
-        country: country
+        country
       }
-    })
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.service.updateCountry(result.id, result.country).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Šalis sėkmingai išsaugota' :
             'Nepavyko išsaugoti šalies'
           );
@@ -154,7 +154,7 @@ export class CountriesComponent implements OnInit {
       if (result?.confirmed) {
         this.service.deleteCountry(country.id).subscribe(response => {
           this.pushNotification(
-            response.status == 200 ?
+            response.status === 200 ?
             'Šalis sėkmingai ištrinta' :
             'Nepavyko ištrinti šalies'
           );
@@ -170,11 +170,11 @@ export class CountriesComponent implements OnInit {
   pushNotification(message: string) {
     this.snackBar.open(
       message,
-      "Uždaryti",
+      'Uždaryti',
       {
         duration: 3000,
       }
-    );  
+    );
   }
 
 

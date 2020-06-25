@@ -7,8 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
-  @Input('route') private route: string[];
-  @Input('hasNext') hasNext: boolean;
+  @Input() private route: string[];
+  @Input() hasNext: boolean;
 
   page: number;
 
@@ -28,7 +28,7 @@ export class PaginatorComponent implements OnInit {
 
   updateQuery() {
     this.router.navigate(this.route, {
-      queryParams:{
+      queryParams: {
         page: (this.page ? this.page : undefined)
       },
       queryParamsHandling: 'merge'
