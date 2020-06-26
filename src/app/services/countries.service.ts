@@ -7,7 +7,7 @@ import { CountryMinimal } from '../components/countries/countries.component';
   providedIn: 'root'
 })
 export class CountriesService {
-  private url = 'https://akademija.teltonika.lt/api3/countries';
+  private url = 'https://akademija.teltonika.lt/api2/countries';
 
   constructor(private http: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { CityMinimal } from '../components/cities/cities.component';
   providedIn: 'root'
 })
 export class CitiesService {
-  private url = 'https://akademija.teltonika.lt/api3/cities';
+  private url = 'https://akademija.teltonika.lt/api2/cities';
 
   constructor(private http: HttpClient) { }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CitiesService } from '../../services/cities.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CityDialogComponent, CityDialogType } from '../dialogs/city/city.dialog.component';
+import { CityDialogComponent, CityDialogType, CityDialogData } from '../dialogs/city/city.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -91,7 +91,6 @@ export class CitiesComponent implements OnInit {
         return;
       }
 
-      // console.log(response);
       this.cities = response.body as any[];  // .cities ??
       this.loading = false;
 
@@ -117,8 +116,8 @@ export class CitiesComponent implements OnInit {
       width: '400px',
       data: {
         type: CityDialogType.create,
-        country_id: this.countryId
-      }
+        countryId: this.countryId
+      } as CityDialogData
     });
 
     dialogRef.afterClosed().subscribe(result => {

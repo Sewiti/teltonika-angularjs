@@ -40,12 +40,12 @@ export class CityDialogComponent {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(50),
-      Validators.pattern('[A-Za-zĄČĘĖĮŠŲŪŽąčęėįšųūž]+')
+      Validators.pattern('[A-Za-zĄČĘĖĮŠŲŪŽąčęėįšųūž ]+')
     ]),
 
     area: new FormControl(null, [
       Validators.required,
-      Validators.min(1),
+      Validators.min(0),
       Validators.max(500000000)
     ]),
 
@@ -53,6 +53,7 @@ export class CityDialogComponent {
       Validators.required,
       Validators.min(1),
       Validators.max(10000000000),
+      Validators.pattern('[0-9]+')
     ]),
 
     postcode: new FormControl(null, [

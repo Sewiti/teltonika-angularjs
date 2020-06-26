@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CountriesService } from '../../services/countries.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { CountryDialogComponent, CountryDialogType } from '../dialogs/country/country.dialog.component';
+import { CountryDialogComponent, CountryDialogType, CountryDialogData } from '../dialogs/country/country.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -93,7 +93,7 @@ export class CountriesComponent implements OnInit {
   newCountryDialog() {
     const dialogRef = this.dialog.open(CountryDialogComponent, {
       width: '400px',
-      data: {type: CountryDialogType.create}
+      data: {type: CountryDialogType.create} as CountryDialogData
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +105,7 @@ export class CountriesComponent implements OnInit {
             'Nepavyko sukurti šalies'
           );
 
-          console.log(response);
+          // console.log(response);
           this.refreshCountries();
         });
       }

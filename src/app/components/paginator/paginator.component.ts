@@ -17,12 +17,14 @@ export class PaginatorComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.activatedRoute.snapshot.queryParamMap.has('page')) {
-      this.page = +this.activatedRoute.snapshot.queryParamMap.get('page');
-    }
-    else {
-      this.page = 1;
-    }
+    this.activatedRoute.queryParamMap.subscribe(query => {
+      if (query.has('page')) {
+        this.page = +query.get('page');
+      }
+      else {
+        this.page = 1;
+      }
+    });
   }
 
 

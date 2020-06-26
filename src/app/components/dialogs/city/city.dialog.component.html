@@ -26,7 +26,7 @@
                 matInput
                 formControlName="area"
                 type="number"
-                placeholder="400">
+                placeholder="401.52">
 
             <mat-error *ngIf="area.errors?.required">Privaloma</mat-error>
             <mat-error *ngIf="area.errors?.min">Skaičius privalo būti teigiamas</mat-error>
@@ -39,11 +39,14 @@
                 matInput
                 formControlName="population"
                 type="number"
-                placeholder="580000">
+                placeholder="580020">
 
             <mat-error *ngIf="population.errors?.required">Privaloma</mat-error>
-            <mat-error *ngIf="population.errors?.min">Skaičius privalo būti teigiamas</mat-error>
+            <mat-error *ngIf="population.errors?.min">Skaičius privalo būti nemažesnis nei vienas</mat-error>
             <mat-error *ngIf="population.errors?.max">Skaičius negali viršyti 10 bilijonų</mat-error>
+            <mat-error *ngIf="population.errors?.pattern  &&
+                             !population.errors?.min &&
+                             !population.errors?.max">Skaičius privalo būti sveikas</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
@@ -52,7 +55,7 @@
                 matInput
                 formControlName="postcode"
                 type="text"
-                placeholder="LT-12345">
+                placeholder="LT-01001">
 
             <mat-error *ngIf="postcode.errors?.required">Privaloma</mat-error>
             <mat-error *ngIf="postcode.errors?.pattern">Netinkamas formatas</mat-error>

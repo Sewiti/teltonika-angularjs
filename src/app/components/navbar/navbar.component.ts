@@ -35,7 +35,10 @@ export class NavBarComponent implements OnInit {
 
   searchChanged() {
     this.router.navigate(this.route, {
-      queryParams: {text: (this.search === '' ? undefined : this.search)},
+      queryParams: {
+        text: (this.search === '' ? undefined : this.search),
+        page: 1
+      },
       queryParamsHandling: 'merge'
     });
   }
@@ -44,7 +47,8 @@ export class NavBarComponent implements OnInit {
   dateChanged() {
     this.router.navigate(this.route, {
       queryParams: {
-        date: (this.date ? this.date.toLocaleDateString('lt-LT') : undefined)
+        date: (this.date ? this.date.toLocaleDateString('lt-LT') : undefined),
+        page: 1
       },
       queryParamsHandling: 'merge'
     });
