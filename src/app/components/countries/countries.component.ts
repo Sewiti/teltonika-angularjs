@@ -3,7 +3,7 @@ import { CountriesService } from '../../services/countries.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CountryDialogComponent, CountryDialogType, CountryDialogData } from '../dialogs/country/country.dialog.component';
-import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
+import { DeleteDialogComponent, DeleteDialogData } from '../dialogs/delete/delete.dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -120,7 +120,7 @@ export class CountriesComponent implements OnInit {
       data: {
         type: CountryDialogType.edit,
         country
-      }
+      } as CountryDialogData
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -146,7 +146,9 @@ export class CountriesComponent implements OnInit {
       DeleteDialogComponent,
       {
         width: '400px',
-        data: { title: country.name }
+        data: {
+          title: country.name
+        } as DeleteDialogData
       }
     );
 

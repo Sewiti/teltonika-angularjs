@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CitiesService } from '../../services/cities.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CityDialogComponent, CityDialogType, CityDialogData } from '../dialogs/city/city.dialog.component';
-import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
+import { DeleteDialogComponent, DeleteDialogData } from '../dialogs/delete/delete.dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -145,9 +145,9 @@ export class CitiesComponent implements OnInit {
         width: '400px',
         data: {
           type: CityDialogType.edit,
-          country_id: this.countryId,
+          countryId: this.countryId,
           city
-        }
+        } as CityDialogData
       }
     );
 
@@ -174,7 +174,9 @@ export class CitiesComponent implements OnInit {
       DeleteDialogComponent,
       {
         width: '400px',
-        data: { title: city.name }
+        data: {
+          title: city.name
+        } as DeleteDialogData
       }
     );
 

@@ -44,7 +44,7 @@
             <mat-error *ngIf="population.errors?.required">Privaloma</mat-error>
             <mat-error *ngIf="population.errors?.min">Skaičius privalo būti nemažesnis nei vienas</mat-error>
             <mat-error *ngIf="population.errors?.max">Skaičius negali viršyti 10 bilijonų</mat-error>
-            <mat-error *ngIf="population.errors?.pattern  &&
+            <mat-error *ngIf="population.errors?.pattern &&
                              !population.errors?.min &&
                              !population.errors?.max">Skaičius privalo būti sveikas</mat-error>
         </mat-form-field>
